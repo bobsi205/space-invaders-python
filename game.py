@@ -2,9 +2,19 @@ import pygame
 import os
 import time
 import random
-from Classes import *
+from classes.GameState import GameState
+from classes.Ship import Ship
+from classes.ships.Laser import Laser
+from classes.ships.Enemy1 import Enemy1
+from classes.ships.Enemy2 import Enemy2
+from classes.ships.Enemy3 import Enemy3
+from classes.ships.PlayerShip import Player, PLAYER_LIFE_IMG
 
-pygame.font.init()
+LASER_SOUND = pygame.mixer.Sound(os.path.join("assets\\sound", "laser.ogg"))
+pygame.mixer.music.load(os.path.join("assets\\sound", "music.ogg"))
+pygame.mixer.music.set_volume(0.2)
+pygame.mixer.music.play()
+
 
 # variables
 WIDTH, HEIGHT = 1280, 720
