@@ -98,8 +98,7 @@ def main():
     def deathHandler():
         # handles lost game timer
         if gameState.lives == 0:
-            if(gameState.lost_counter == 0):
-                player.death()
+            player.death()
             gameState.lost = True
             gameState.lost_counter += 1
 
