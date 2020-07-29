@@ -49,6 +49,67 @@ def main():
                               enemy.laser_vel+enemy.ship_vel, 1, enemy.damage)
                 gameState.lasers.append(laser)
 
+    def stageHandler():
+        if len(gameState.enemies) == 0:
+            gameState.level += 1
+            gameState.wave_length += 5
+            enemy_dic = (Enemy1, Enemy2, Enemy3)
+            for i in range(gameState.wave_length):
+                enemy = random.choice(enemy_dic)
+                gameState.enemies.append(enemy(random.randrange(100, WIDTH-100),
+                                               random.randrange(-1500, -100)))
+        else:
+            # handles enemies
+            for enemy in gameState.enemies:
+                enemy.move()
+                enemy_shoot(enemy)
+                if(enemy.y >= HEIGHT or enemy.y > 0 and player.collide(enemy)):
+                    gameState.enemies.remove(enemy)
+                    enemy.death()
+                    gameState.hit()
+
+        # handles lasers
+        if len(gameState.lasers):
+            for laser in gameState.lasers:
+                if laser.off_screen(HEIGHT):
+                    gameState.lasers.remove(laser)
+                elif player.collide(laser):
+                    gameState.hit()
+                    gameState.lasers.remove(laser)
+                else:
+                    move = True
+                    for obj in (gameState.enemies):
+                        if(laser.collision(obj)):
+                            obj.Damage(laser.damage)
+                            if obj.health <= 0:
+                                gameState.enemies.remove(obj)
+                            gameState.lasers.remove(laser)
+                            move = False
+                            continue
+                    if(laser.collision(player)):
+                        player.Damage(laser.damage)
+                        gameState.lasers.remove(laser)
+                        move = False
+                        continue
+                    if move:
+                        laser.moveLaser()
+        player.shot_counter()
+
+    def deathHandler():
+        # handles lost game timer
+        if gameState.lives == 0:
+            if(gameState.lost_counter == 0):
+                player.death()
+            gameState.lost = True
+            gameState.lost_counter += 1
+
+        # checks if lost the game
+        if gameState.lost:
+            if gameState.lost_counter > gameState.FPS*3:
+                gameState.run = False
+            else:
+                return True
+
     def reRender():
         # background
         WIN.blit(BG, (0, bgY))
@@ -92,20 +153,10 @@ def main():
 
         clock.tick(gameState.FPS)
         reRender()
-        # test logs
 
-        # handles lost game timer
-        if gameState.lives == 0:
-            player.death()
-            gameState.lost = True
-            gameState.lost_counter += 1
-
-        # checks if lost the game
-        if gameState.lost:
-            if gameState.lost_counter > gameState.FPS*3:
-                gameState.run = False
-            else:
-                continue
+        # handles death
+        if(deathHandler()):
+            continue
 
         # handle background repetition
         bgY += 0.8
@@ -115,48 +166,7 @@ def main():
         if bgY2 > BG.get_height():
             bgY2 = -BG.get_height()
 
-        # checks if stage cleared
-        if len(gameState.enemies) == 0:
-            gameState.level += 1
-            gameState.wave_length += 5
-            enemy_dic = (Enemy1, Enemy2, Enemy3)
-            for i in range(gameState.wave_length):
-                enemy = random.choice(enemy_dic)
-                gameState.enemies.append(enemy(random.randrange(100, WIDTH-100),
-                                               random.randrange(-1500, -100)))
-
-        # handles enemies
-        else:
-            for enemy in gameState.enemies:
-                enemy.move()
-                enemy_shoot(enemy)
-                if(enemy.y >= HEIGHT or enemy.y > 0 and player.collide(enemy)):
-                    gameState.enemies.remove(enemy)
-                    gameState.hit()
-
-        # moves and deletes lasers
-        if len(gameState.lasers):
-            for laser in gameState.lasers:
-                if laser.off_screen(HEIGHT):
-                    gameState.lasers.remove(laser)
-                else:
-                    move = True
-                    for obj in (gameState.enemies):
-                        if(laser.collision(obj)):
-                            obj.Damage(laser.damage)
-                            if obj.health <= 0:
-                                gameState.enemies.remove(obj)
-                            gameState.lasers.remove(laser)
-                            move = False
-                            continue
-                    if(laser.collision(player)):
-                        player.Damage(laser.damage)
-                        gameState.lasers.remove(laser)
-                        move = False
-                        continue
-                    if move:
-                        laser.moveLaser()
-        player.shot_counter()
+        stageHandler()
 
         # handles pygame events
         for event in pygame.event.get():
