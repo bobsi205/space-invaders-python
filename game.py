@@ -96,6 +96,7 @@ def main():
 
         # handles lost game timer
         if gameState.lives == 0:
+            player.death()
             gameState.lost = True
             gameState.lost_counter += 1
 
