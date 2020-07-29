@@ -1,6 +1,5 @@
 import pygame
 import os
-import time
 import random
 from classes.GameState import GameState
 from classes.Ship import Ship
@@ -74,6 +73,7 @@ def main():
                 if laser.off_screen(HEIGHT):
                     gameState.lasers.remove(laser)
                 elif player.collide(laser):
+                    player.hit()
                     gameState.hit()
                     gameState.lasers.remove(laser)
                 else:
@@ -98,7 +98,8 @@ def main():
     def deathHandler():
         # handles lost game timer
         if gameState.lives == 0:
-            player.death()
+            if(gameState.lost_counter == 0):
+                player.death()
             gameState.lost = True
             gameState.lost_counter += 1
 
@@ -111,8 +112,8 @@ def main():
 
     def reRender():
         # background
-        WIN.blit(BG, (0, bgY))
-        WIN.blit(BG, (0, bgY2))
+        WIN.blit(BG, (0, int(bgY)))
+        WIN.blit(BG, (0, int(bgY2)))
 
         # enemies
         for enemy in gameState.enemies:
@@ -129,8 +130,8 @@ def main():
         if gameState.lost:
             lost_message = lost_font.render(
                 "You Lost! Better Luck Next Time", 1, (255, 255, 255))
-            WIN.blit(lost_message, (WIDTH/2-lost_message.get_width() /
-                                    2, HEIGHT/2-lost_message.get_height()/2))
+            WIN.blit(lost_message, (int(WIDTH/2-lost_message.get_width() /
+                                        2), int(HEIGHT/2-lost_message.get_height()/2)))
 
         # draw text
         level_label = main_font.render(

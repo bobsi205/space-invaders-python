@@ -1,7 +1,6 @@
 import pygame
 import os
-import time
-import random
+
 from classes.Ship import Ship
 from classes.ships.Laser import Laser
 from classes.Sound import PLAYER_DEATH_SOUND, HIT_SOUND
@@ -48,3 +47,6 @@ class Player(Ship):
         offsetX = int(obj.x - self.x)
         offsetY = int(obj.y - self.y)
         return self.mask.overlap(obj.mask, (offsetX, offsetY)) != None
+
+    def hit(self):
+        self.hitSound.play()

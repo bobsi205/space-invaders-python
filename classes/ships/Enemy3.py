@@ -1,7 +1,6 @@
 import pygame
 import os
-import time
-import random
+
 from classes.Ship import Ship
 from classes.Sound import HIT_SOUND, ENEMY_DEATH_SOUND
 

@@ -1,7 +1,5 @@
 import pygame
 import os
-import time
-import random
 
 LASER_SOUND = pygame.mixer.Sound(os.path.join("assets\\sound", "laser.ogg"))
 

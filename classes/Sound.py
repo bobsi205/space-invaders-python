@@ -1,11 +1,11 @@
 import pygame
 import os
-import time
-import random
 
 # player
 PLAYER_DEATH_SOUND = pygame.mixer.Sound(
     os.path.join("assets\\sound", "player_death.ogg"))
+
+#player and enemy
 HIT_SOUND = pygame.mixer.Sound(os.path.join("assets\\sound", "hit.ogg"))
 
 # enemys
