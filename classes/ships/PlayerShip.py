@@ -8,12 +8,12 @@ from classes.Sound import PLAYER_DEATH_SOUND, HIT_SOUND
 
 
 PLAYER_SHIP_IMG = pygame.transform.scale(pygame.image.load(os.path.join(
-    "assets\\200ships\\Shaded", "ship_0.png")), (50, 50))
+    "assets\\ships", "player.png")), (50, 50))
 
 PLAYER_LIFE_IMG = pygame.transform.scale(pygame.image.load(os.path.join(
-    "assets\\200ships\\Shaded", "ship_0.png")), (25, 25))
+    "assets\\ships", "player.png")), (25, 25))
 PLAYER_LASER_IMG = pygame.transform.rotate(pygame.transform.scale(pygame.image.load(
-    os.path.join("assets\\ships\\PNG_Animations\\Shots\\Shot1", "shot1_4.png")), (20, 20)), 90)
+    os.path.join("assets\\lasers", "player.png")), (20, 20)), 90)
 
 
 class Player(Ship):

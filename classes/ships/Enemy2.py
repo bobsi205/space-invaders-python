@@ -7,7 +7,7 @@ from classes.Sound import HIT_SOUND, ENEMY_DEATH_SOUND
 
 
 ENEMY_2_IMG = pygame.transform.rotate(pygame.transform.scale(pygame.image.load(os.path.join(
-    "assets\\200ships\\Shaded", "ship_145.png")), (50, 50)), 180)
+    "assets\\ships", "enemy2.png")), (50, 50)), 180)
 
 
 class Enemy2(Ship):

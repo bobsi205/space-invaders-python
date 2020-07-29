@@ -19,12 +19,12 @@ BG = pygame.transform.scale(pygame.image.load(os.path.join(
     "assets", "space_background.jpg")), (WIDTH, HEIGHT))
 
 ENEMY_LASER_IMG = pygame.transform.rotate(pygame.transform.scale(pygame.image.load(
-    os.path.join("assets\\ships\\PNG_Animations\\Shots\\Shot5", "shot5_5.png")), (20, 20)), 90)
+    os.path.join("assets\\lasers", "enemy.png")), (20, 20)), 90)
 
 
 # display
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Bam")
+pygame.display.set_caption("space invaders")
 
 
 def main():
