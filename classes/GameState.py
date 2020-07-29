@@ -16,3 +16,6 @@ class GameState:
         self.lasers = lasers
         self.run = run
         self.score = score
+
+    def hit(self):
+        self.lives -= 1

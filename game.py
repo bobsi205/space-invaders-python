@@ -129,6 +129,9 @@ def main():
             for enemy in gameState.enemies:
                 enemy.move()
                 enemy_shoot(enemy)
+                if(enemy.y >= HEIGHT or enemy.y > 0 and player.collide(enemy)):
+                    gameState.enemies.remove(enemy)
+                    gameState.hit()
 
         # moves and deletes lasers
         if len(gameState.lasers):

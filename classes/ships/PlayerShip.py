@@ -43,3 +43,8 @@ class Player(Ship):
                               self.laser_vel+self.ship_vel, -1, self.damage)
                 lasers.append(laser)
                 self.cooldown = 0
+
+    def collide(self, obj):
+        offsetX = int(obj.x - self.x)
+        offsetY = int(obj.y - self.y)
+        return self.mask.overlap(obj.mask, (offsetX, offsetY)) != None
